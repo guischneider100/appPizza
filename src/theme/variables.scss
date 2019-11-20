@@ -4,23 +4,23 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #F75705;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #F79A05;
+  --ion-color-primary-tint: #EDAB05;
 
   /** secondary **/
-  --ion-color-secondary: #0cd1e8;
+  --ion-color-secondary: #e8850c;
   --ion-color-secondary-rgb: 12, 209, 232;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #0bb8cc;
-  --ion-color-secondary-tint: #24d6ea;
+  --ion-color-secondary-shade: #eb9d28;
+  --ion-color-secondary-tint: #eaa824;
 
   /** tertiary **/
-  --ion-color-tertiary: #7044ff;
+  --ion-color-tertiary: rgb(248, 103, 31);
   --ion-color-tertiary-rgb: 112, 68, 255;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
@@ -74,4 +74,270 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  //----------------TOOLBAR----------------------
+
+  .titles-toolbar {
+    text-align: left; 
+    font-size: 20px;
+    font-family: 'Trebuchet MS';
+    color: white;
+    border: black;
+  }
+
+  .titles-toolbar-menu {
+    text-align: left; 
+    font-size: 20px;
+    padding-bottom: 5px;
+    font-family: 'Trebuchet MS';
+    color: white;
+    border: black;
+  }
+
+  .titles-toolbar-menor {
+    text-align: left; 
+    font-size: 18px;
+    font-family: 'Trebuchet MS';
+    color: white;
+    border: black;
+  }
+
+  //---------------ICON-----------------------
+
+  .padrao-icon {
+    font-size: 20px;
+  }
+
+  .padrao-icon-back {
+    font-size: 23px;
+    padding: 0px 5px 0px 10px;
+  }
+
+  .big-icon {
+    font-size: 40px;
+  }
+
+  //---------------GRID-------------------------
+
+  .padrao-grid-row{
+    padding: 5px 5px 15px 5px;
+  }
+
+  .padrao-grid-row-p-right{
+    padding: 5px 18px 5px 17px;
+  }
+
+  .padrao-grid-row-p-off-bottom{
+    padding: 5px 18px 0px 17px;
+  }
+
+  .padrao-grid-row-p-top{
+    padding: 15px 5px 5px 5px;
+  }
+
+  .padrao-grid-label{
+    font-size: 14px; 
+    font-weight: bold; 
+    color: black
+  }
+
+  .padrao-grid-label-combobox{
+    font-size: 14px; 
+    font-weight: bold; 
+    padding-left: 15px;
+    padding-top: 15px;
+    color: black
+  }
+
+  .padrao-grid-label-no-bold{
+    font-size: 14px; 
+    color: black
+  }
+
+  .padrao-grid-text-field{
+    font-size: 13px; 
+    color: gray;
+  }
+  
+  .p-g-t-f-alinhamento {
+    text-align: end;
+  }
+
+  .padrao-grid-combobox{
+    padding-top: 32px;
+  }
+
+  .padrao-grid-combobox-maior{
+    padding-top: 20px;
+    font-size: 14px; 
+    color: black
+  }
+
+//---------------BUTTON-----------------------
+
+  .formatacao-padrao-button-texto {
+    justify-content: center;
+    align-items: center;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+  }
+
+  .button-padrao-tamanho {
+    width: 280px;
+  }
+
+  .espacamento-icon-button{
+    padding-right: 5px;
+  }
+
+  .espacamento-icon-button2{
+    padding-left: 5px;
+  }
+
+  .normal-button {
+    width: 50px;
+    height: 50px;
+    --border-radius: 50%;
+    --vertical-align: middle;
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }
+
+  .big-button {
+    width: 100px;
+    height: 100px;
+    --border-radius: 50%;
+    --vertical-align: middle;
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }
+
+  .formatacao-padrao-big-button {
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px 5px 5px;
+    text-align: center;
+  }
+
+//---------------TEXT-----------------------
+
+  .padrao-text-justify{
+    font-size: 15px;
+    text-align:justify;
+    color: rgb(39, 37, 37);
+  }
+
+  .padrao-title{
+    font-size: 18px;
+    font-family: 'Trebuchet MS';
+    color: black;
+  }
+
+  .padrao-text-field{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    color: rgb(39, 37, 37);
+  }
+
+  .padrao-subtitle {
+    padding-top: 5px;
+    padding-left: 35px;
+    font-size: 13px;  
+    font-family: 'Trebuchet MS';
+  }
+
+  .label-right{
+    font-size: 15px;
+    padding: 10px 0px 0px 0px;
+    color: black;
+    justify-content: end;
+    align-items: end;
+    text-align: end;
+  }
+
+  .searchbar-input {
+    font-size: 15px;
+    border: solid 2px #F75705;
+    border-radius: 10px;
+    background: white;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+    //width: 342px;
+  }
+
+  .searchbar-input-espacamento {
+      padding-top: 7px;
+  }
+
+//---------------CARD-------------------------
+
+  .titles-card {
+    text-align: left; 
+    font-size: 16px;
+    font-family: 'Trebuchet MS';
+    border: black;
+    color: white;
+    font-weight: bold; 
+  }
+
+  .formatacao-padrao-button-texto-card {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 0px 0px 0px;
+  }
+
+  .padrao-card{
+    border-radius: 10px;
+  }
+
+  .formatacao-padrao-button-texto-card-login{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px 0px 0px 0px;
+  }
+
+  .formatacao-padrao-button-texto-card-login-top{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px 0px 0px 0px;
+  }
+
+//---------------ALERT--------------------------
+
+  .padrao-toast{
+    font-size: 15px; 
+    text-align: center;
+  }
+
+  ion-alert{
+    --width: 450px !important;
+    --background: white !important;
+    
+    .alert-head {
+      background: #F75705 !important;
+      --ion-text-color: white !important;
+
+      .alert-title {
+        font-size: 17px;
+      }
+    }
+
+    .alert-label {
+      font-size: 15px;
+    }
+  }
+
+//---------------BADGE--------------------------
+
+  .padrao-badge{
+    border-radius: 0px 8px 0px 8px;
+    font-size: 11px;
+    padding-left: 5px;
+  }
+
 }

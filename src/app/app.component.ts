@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,28 +13,47 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
+      title: 'Pedidos',
+      url: '/empresa-tela-principal',
+      icon: 'md-paper'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Sabores',
+      url: '/empresa-tela-sabores',
+      icon: 'md-pizza'
+    },
+    {
+      title: 'QR Code',
+      url: '/empresa-tela-qrcode',
+      icon: 'md-barcode'
+    },
+    {
+      title: 'Informações',
+      url: '../empresa-tela-informacoes',
+      icon: 'md-information-circle'
+    },
+    {
+      title: 'Configurações',
+      url: '/empresa-tela-configuracoes',
+      icon: 'md-settings'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private router: Router
   ) {
     this.initializeApp();
+    this.router.navigateByUrl("/tela-inicial");
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      if (this.platform.is('android')) {
+        this.statusBar.backgroundColorByHexString("#33000000");
+      }
       this.splashScreen.hide();
     });
   }

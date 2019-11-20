@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/tela-inicial']"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titles-toolbar">Leitura QR Code</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="padrao-card">
+    <img src="../../assets/envio-email.jpg" />
+    <ion-card-header>
+      <ion-card-title class="padrao-title">Confirmação de e-mail</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="padrao-text-justify">
+      Insira o código que você recebeu em seu e-mail para confirmar o cadastro.
+    </ion-card-content>
+    <ion-row class="padrao-grid-row">
+      <ion-col>
+        <ion-item lines="full">
+          <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="full">
+          <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="full">
+          <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="full">
+          <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="full">
+          <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="padrao-grid-row">
+      <ion-col class="formatacao-padrao-button-texto-card">
+        <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-login']">
+          <ion-icon name="md-log-in" class="espacamento-icon-button"></ion-icon> Continuar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

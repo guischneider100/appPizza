@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titles-toolbar">Sugestões</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9.7" class="searchbar-input-espacamento">
+        <ion-input class="searchbar-input" placeholder="Pesquisar..." clearInput></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-button color="secondary">
+          <ion-icon class="padrao-icon" name="md-search"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list class="padrao-list" lines="full">
+          <ion-item>
+            <ion-label><b>Sugestão:</b> quebrar tudo</ion-label>
+            <ion-checkbox slot="end"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Sugestão:</b> quebrar tudo</ion-label>
+            <ion-checkbox slot="end"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+
+    <ion-toolbar position="bottom">
+      <div class="formatacao-padrao-button-texto">
+        <ion-button color="secondary" class="button-padrao-tamanho" (click)="acaoToast()">
+          <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> RESOLVER
+        </ion-button>
+      </div>
+    </ion-toolbar>
+  
+  </ion-footer>

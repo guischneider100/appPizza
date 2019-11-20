@@ -1,0 +1,95 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/empresa-login']"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titles-toolbar">Registrar-se</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <img src="../../assets/padrao-camp-obg.jpg" />
+    <ion-card-header>
+      <ion-card-title class="padrao-title">Registro de empresa</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="padrao-text-justify">
+      Realize o preenchimento de todos os campos obrigatórios (marcados com um *) e clique em "REGISTRAR" para realizar o cadastro da empresa.
+    </ion-card-content>
+    <ion-grid>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">Razão Social: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">Nome Fantasia: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">CNPJ: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">CEP: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">UF: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">Email: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">Login: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">Senha: *</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="formatacao-padrao-button-texto-card-login">
+            <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-cadastro-email']">
+              <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> REGISTRAR
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>

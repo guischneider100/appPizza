@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titles-toolbar">Configurações</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row class="padrao-grid-row">
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="floating" class="padrao-grid-label">Impressora:</ion-label>
+            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="formatacao-padrao-button-texto-card-login">
+            <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-tela-principal']">
+              <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> SALVAR ALTERAÇÕES
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>

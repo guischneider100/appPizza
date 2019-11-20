@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titles-toolbar">Qual é o Sabor?</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content color="tertiary">
+
+  <div class="formatacao-padrao-button-texto-card-login">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <img src="../../assets/tela-inicial-pizza.png" height='350' width='300'/>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-login']">
+            <ion-icon name="md-briefcase" class="espacamento-icon-button"></ion-icon> EMPRESA
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/cliente-qrcode']">
+            <ion-icon name="md-people" class="espacamento-icon-button"></ion-icon> CLIENTE
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

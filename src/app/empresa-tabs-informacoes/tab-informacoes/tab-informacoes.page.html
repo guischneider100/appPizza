@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titles-toolbar">Informações</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-select class="padrao-grid-combobox-maior" placeholder="">
+          <ion-select-option value="1" selected>Sabores Mais Pedidos</ion-select-option>
+          <ion-select-option value="2" selected>Números de Pedaçõs</ion-select-option>
+          <ion-select-option value="3" selected>Chamadas de Garçom</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col>
+        <ion-select class="padrao-grid-combobox-maior" placeholder="">
+          <ion-select-option value="1" selected>Data Atual</ion-select-option>
+          <ion-select-option value="2" selected>Período</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="0.7">
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+
+    <ion-toolbar position="bottom">
+      <div class="formatacao-padrao-button-texto">
+        <ion-button color="secondary" class="button-padrao-tamanho">
+          <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> GERAR RELATÓRIO
+        </ion-button>
+      </div>
+    </ion-toolbar>
+  
+  </ion-footer>
