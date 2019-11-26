@@ -25,15 +25,17 @@
     <ion-row>
       <ion-col>
         <ion-list class="padrao-list" lines="full">
-          <ion-item detail (click)="editarSabor()">
-            <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-pizza-salgada.jpg">
-            </ion-thumbnail>
-            <div>
-              <ion-label>Calabresa</ion-label>
-              <ion-label>Calabresa</ion-label>
-            </div>
-          </ion-item>
+          <div *ngFor="let sabor of sabores">
+            <ion-item detail *ngIf="sabor.empresa == empresa" (click)="editarSabor(sabor)">
+              <ion-thumbnail slot="start">
+                <img style="border-radius: 30%;" src="../../assets/padrao-pizza-salgada.jpg">
+              </ion-thumbnail>
+              <div>
+                <ion-label>{{ sabor.nome }}</ion-label>
+                <ion-label>{{ sabor.ingredientes }}</ion-label>
+              </div>
+            </ion-item>
+          </div>
         </ion-list>
       </ion-col>
     </ion-row>

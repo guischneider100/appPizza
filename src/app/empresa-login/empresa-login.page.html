@@ -19,7 +19,7 @@
             <ion-label position="floating">
               <ion-icon name="md-contact"></ion-icon> Usuário
             </ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input type="text" [(ngModel)]="loginUsuario" class="padrao-grid-text-field"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -29,20 +29,14 @@
             <ion-label position="floating">
               <ion-icon name="md-lock"></ion-icon> Senha
             </ion-label>
-            <ion-input [type]="tipoSenha" class="padrao-grid-text-field"></ion-input>
+            <ion-input [type]="tipoSenha" [(ngModel)]="loginSenha" class="padrao-grid-text-field"></ion-input>
             <ion-button (click)="mostrarSenha()" slot="end"><ion-icon name="md-eye"></ion-icon></ion-button>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row class="padrao-grid-row">
-        <ion-col class="label-right">
-          <ion-label>Lembrar-me</ion-label>
-        </ion-col>
-        <ion-toggle></ion-toggle>
-      </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-tela-principal']">
+          <ion-button color="secondary" class="button-padrao-tamanho" (click)="login()">
             <ion-icon name="md-log-in" class="espacamento-icon-button"></ion-icon> ENTRAR
           </ion-button>
         </ion-col>

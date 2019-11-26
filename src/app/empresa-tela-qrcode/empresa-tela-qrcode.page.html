@@ -30,26 +30,18 @@
     <ion-row>
       <ion-col>
         <ion-list class="padrao-list" lines="full">
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-qrcode.png">
-            </ion-thumbnail>
-            <div>
-              <ion-label>Mesa 2</ion-label>
-            </div>
-            <ion-icon slot="end" name="md-alert" class="padrao-icon" color="danger"></ion-icon>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-qrcode.png">
-            </ion-thumbnail>
-            <div>
-              <ion-label>Mesa 4</ion-label>
-            </div>
-            <ion-icon slot="end" name="md-checkmark-circle" class="padrao-icon" color="success"></ion-icon>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
+          <div *ngFor="let qrcode of qrcodes">
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <img style="border-radius: 30%;" src="../../assets/padrao-qrcode.png">
+              </ion-thumbnail>
+              <div>
+                <ion-label>Mesa {{ qrcode.mesa }}</ion-label>
+              </div>
+              <ion-icon slot="end" name="md-alert" class="padrao-icon" color="danger"></ion-icon>
+              <ion-checkbox slot="end"></ion-checkbox>
+            </ion-item>
+          </div>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -61,7 +53,7 @@
 
   <ion-toolbar position="bottom">
     <div class="formatacao-padrao-button-texto">
-      <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-tela-edita-qrcode']">
+      <ion-button color="secondary" class="button-padrao-tamanho" (click)="cadastrarQRCode()">
         <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> CADASTRAR QR CODE
       </ion-button>
     </div>

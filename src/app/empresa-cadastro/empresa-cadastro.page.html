@@ -11,6 +11,7 @@
 
 <ion-content>
 
+  <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarEmpresa()" novalidate>
   <ion-card>
     <img src="../../assets/padrao-camp-obg.jpg" />
     <ion-card-header>
@@ -24,66 +25,74 @@
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">Razão Social: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="razaoSocial" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-label *ngIf="errorRazaoSoc" class="error"> {{messageRazaoSoc}}</ion-label>
       <ion-row class="padrao-grid-row">
         <ion-col>
           <ion-item lines="full">
-            <ion-label position="floating" class="padrao-grid-label">Nome Fantasia: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-label position="floating" class="padrao-grid-label">Nome Fantasia: </ion-label>
+            <ion-input formControlName="nomeFantasia" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-label *ngIf="errorNomeFant" class="error"> {{messageNomeFant}}</ion-label>
       <ion-row class="padrao-grid-row">
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">CNPJ: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="CNPJ" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false" [brmasker]="{mask:'00.000.000/0000-00', len:18}"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-label *ngIf="errorCNPJ" class="error"> {{messageCNPJ}}</ion-label>
       <ion-row class="padrao-grid-row">
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">CEP: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="CEP" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false" [brmasker]="{mask:'00000-000', len:9}"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">UF: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="UF" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-label *ngIf="errorCEP" class="error"> {{messageCEP}}</ion-label>
+      <ion-label *ngIf="errorUF" class="error"> {{messageUF}}</ion-label>
       <ion-row class="padrao-grid-row">
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">Email: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="Email" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-label *ngIf="errorEmail" class="error"> {{messageEmail}}</ion-label>
       <ion-row class="padrao-grid-row">
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">Login: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="Login" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating" class="padrao-grid-label">Senha: *</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input formControlName="Senha" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-label *ngIf="errorLogin" class="error"> {{messageLogin}}</ion-label>
+      <ion-label *ngIf="errorSenha" class="error"> {{messageSenha}}</ion-label>
       <ion-row>
         <ion-col>
           <div class="formatacao-padrao-button-texto-card-login">
-            <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-cadastro-email']">
+            <ion-button color="secondary" class="button-padrao-tamanho" (click)="cadastrarEmpresa()">
               <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> REGISTRAR
             </ion-button>
           </div>
@@ -91,5 +100,6 @@
       </ion-row>
     </ion-grid>
   </ion-card>
+</form>
 
 </ion-content>

@@ -1,14 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { SaboresService } from '../conexao/sabores.service';
+import { ConfiguracaoServService } from '../conexao/configuracao-serv.service';
 
 @Component({
   selector: 'app-empresa-tela-sabores',
   templateUrl: './empresa-tela-sabores.page.html',
   styleUrls: ['./empresa-tela-sabores.page.scss'],
+  providers: [
+    ConfiguracaoServService,
+    SaboresService
+  ]
 })
 export class EmpresaTelaSaboresPage implements OnInit {
 
-  constructor(private router: Router) { }
+  public sabores: any;
+  public empresa: any;
+
+  constructor(private router: Router,
+    public saboresService: SaboresService,
+    public configService: ConfiguracaoServService) {
+  }
+
+  ionViewWillEnter() {
+    let config = JSON.parse(this.configService.getConfigData());
+    this.empresa = config.codigoEmpresa;
+    this.saboresService.buscarSabores(config.access_token)
+      .subscribe(
+        data => {
+          this.sabores = data;
+        }, error => {
+        }
+      )
+  }
 
   tipoCadastroCadas = {
     tipo: "Cadastrar"
@@ -24,15 +48,19 @@ export class EmpresaTelaSaboresPage implements OnInit {
         tipoCadastro: this.tipoCadastroCadas
       }
     };
+
     this.router.navigate(['empresa-tela-edita-sabores'], navigationExtras);
   }
 
-  editarSabor() {
+  editarSabor(sabor) {
     let navigationExtras: NavigationExtras = {
       state: {
         tipoCadastro: this.tipoCadastroSalvar
       }
     };
+
+    this.saboresService.setSabor(sabor);
+
     this.router.navigate(['empresa-tela-edita-sabores'], navigationExtras);
   }
 

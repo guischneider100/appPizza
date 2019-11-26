@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScannerOptions, BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-qrcode',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class ClienteQrcodePage implements OnInit {
 
   scannedData: {};
+  arrayInfos: String[];
   barcodeScannerOptions: BarcodeScannerOptions;
 
   constructor(private barcodeScanner: BarcodeScanner, private router: Router) {
@@ -23,7 +24,18 @@ export class ClienteQrcodePage implements OnInit {
   }
 
   scanCode() {
-    this.router.navigate(['cliente-nome']);
+
+    this.scannedData = "1:1";
+    this.arrayInfos = this.scannedData.toString().split(':');
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        qrCodeMesa: this.arrayInfos[0],
+        qrCodeEmpresa: this.arrayInfos[1]
+      }
+    };
+
+    this.router.navigate(['cliente-nome'], navigationExtras);
     /*this.barcodeScanner
       .scan()
       .then(barcodeData => {

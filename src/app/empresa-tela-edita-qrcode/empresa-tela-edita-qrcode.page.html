@@ -11,26 +11,29 @@
 
 <ion-content>
 
-  <ion-card>
-    <ion-grid>
-      <ion-row class="padrao-grid-row">
-        <ion-col>
-          <ion-item lines="full">
-            <ion-label position="floating" class="padrao-grid-label">Mesa:</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row class="padrao-grid-row">
-        <ion-col>
-          <div class="formatacao-padrao-button-texto-card-login">
-            <ion-button color="secondary" class="button-padrao-tamanho" (click)="acaoToast()">
-              <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> CADASTRAR
-            </ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
+  <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarQRCode()" novalidate>
+    <ion-card>
+      <ion-grid>
+        <ion-row class="padrao-grid-row">
+          <ion-col>
+            <ion-item lines="full">
+              <ion-label position="floating" class="padrao-grid-label">Mesa:</ion-label>
+              <ion-input formControlName="Mesa" type="number" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-label *ngIf="errorMesa" class="error"> {{messageMesa}}</ion-label>
+        <ion-row class="padrao-grid-row">
+          <ion-col>
+            <div class="formatacao-padrao-button-texto-card-login">
+              <ion-button color="secondary" class="button-padrao-tamanho" (click)="cadastrarQRCode()">
+                <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> CADASTRAR
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </form>
 
 </ion-content>
