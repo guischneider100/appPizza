@@ -17,7 +17,7 @@ import { SaboresService } from 'src/app/conexao/sabores.service';
 export class TabInformacoesPage implements OnInit {
 
   public mostraData: boolean = false;
-  tipoPesquisa: any;
+  tipoPesquisa = 0;
   public empresa: any;
   public cadastroForm: FormGroup;
   messageDataDe = "";
@@ -36,6 +36,8 @@ export class TabInformacoesPage implements OnInit {
   j = 0;
   k = 0;
   cont = 0;
+  tipoInformacoes = 0;
+  public podeGerarInformacao = false;
 
   constructor(public sugestaoService: SugestaoService,
     public configService: ConfiguracaoServService,
@@ -46,6 +48,13 @@ export class TabInformacoesPage implements OnInit {
       DataDe: ['', Validators.compose([Validators.minLength(6), Validators.maxLength(20), Validators.required])],
       DataAte: ['', Validators.compose([Validators.minLength(6), Validators.maxLength(20), Validators.required])]
     });
+
+    setInterval(() => {
+      this.podeGerarInformacao = false;
+      if (this.tipoInformacoes != 0 && this.tipoPesquisa != 0) {
+        this.podeGerarInformacao = true;
+      }
+    }, 100);
 
   }
 

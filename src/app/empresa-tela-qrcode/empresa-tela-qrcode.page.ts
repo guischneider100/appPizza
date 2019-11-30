@@ -39,20 +39,20 @@ export class EmpresaTelaQrcodePage implements OnInit {
     public pedidoService: PedidoService,
     private alertCtrl: AlertController) {
 
-      setInterval(() => {
-        this.i = 0;
-        this.podeGerarQRCode = false;
-        this.podeExcluirQRCode = false;
-        while (this.i < this.qrcodes.length) {
-          if (this.qrcodes[this.i].checked) {
-            this.podeGerarQRCode = true;
-            this.podeExcluirQRCode = true;
-          }
-          this.i++;
+    setInterval(() => {
+      this.i = 0;
+      this.podeGerarQRCode = false;
+      this.podeExcluirQRCode = false;
+      while (this.i < this.qrcodes.length) {
+        if (this.qrcodes[this.i].checked) {
+          this.podeGerarQRCode = true;
+          this.podeExcluirQRCode = true;
         }
-      }, 100);
+        this.i++;
+      }
+    }, 100);
 
-     }
+  }
 
   ionViewWillEnter() {
     let config = JSON.parse(this.configService.getConfigData());
@@ -188,7 +188,7 @@ export class EmpresaTelaQrcodePage implements OnInit {
       this.i++;
     }
 
-    window.open('https://chart.googleapis.com/chart?chs=350x350&cht=qr&chl='+'1:1');
+    window.open('https://chart.googleapis.com/chart?chs=350x350&cht=qr&chl=' + '1:1');
   }
 
   ngOnInit() {

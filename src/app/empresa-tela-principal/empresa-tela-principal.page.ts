@@ -56,7 +56,6 @@ export class EmpresaTelaPrincipalPage implements OnInit {
 
   ngOnInit() {
     let config = JSON.parse(this.configService.getConfigData());
-
     this.pedidoService.buscarClientes()
       .subscribe(
         data => {
@@ -83,6 +82,7 @@ export class EmpresaTelaPrincipalPage implements OnInit {
     this.pedidoService.buscarPedidos(config.access_token)
       .subscribe(
         data3 => {
+          this.pedidos = [];
           while (this.i < Object.keys(data3).length) {
             while (this.j < Object.keys(this.clientes).length) {
               if (data3[this.i].cliente == this.clientes[this.j].cliCod) {

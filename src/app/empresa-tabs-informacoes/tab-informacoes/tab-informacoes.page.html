@@ -72,7 +72,7 @@
 
   <ion-toolbar position="bottom">
     <div class="formatacao-padrao-button-texto">
-      <ion-button color="secondary" class="button-padrao-tamanho" (click)="buscarDados()">
+      <ion-button [disabled]="!podeGerarInformacao" color="secondary" class="button-padrao-tamanho" (click)="buscarDados()">
         <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> GERAR RELATÓRIO
       </ion-button>
     </div>
