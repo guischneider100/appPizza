@@ -16,27 +16,27 @@
       <ion-card-title class="padrao-title">Informe o seu Nome</ion-card-title>
     </ion-card-header>
     <ion-card-content class="padrao-text-justify">
-      Você está logado na Mesa {{infoListagem}}, por favor insira seu nome e continue:
+      Você está logado na Mesa {{infoListagem.qrCodeMesa}}, por favor insira seu nome e continue:
     </ion-card-content>
     <ion-grid>
       <ion-row class="padrao-grid-row">
         <ion-col>
           <ion-item lines="full">
             <ion-label position="floating">Nome</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
+            <ion-input name="nomeCliente" [(ngModel)]="nomeCliente" type="text" class="padrao-grid-text-field"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row class="padrao-grid-row-p-top">
         <ion-col class="formatacao-padrao-button-texto-card-login">
-          <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/cliente-tela-principal']">
+          <ion-button color="secondary" class="button-padrao-tamanho" (click)="continuarNome()">
             <ion-icon name="md-log-in" class="espacamento-icon-button"></ion-icon> Continuar
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="padrao-grid-row">
           <ion-col class="formatacao-padrao-button-texto-card-login">
-            <ion-button color="secondary" class="button-padrao-tamanho">
+            <ion-button color="secondary" class="button-padrao-tamanho" (click)="continuarNome()">
               <ion-icon name="logo-facebook" class="espacamento-icon-button"></ion-icon> Acessar com o Facebook
             </ion-button>
           </ion-col>

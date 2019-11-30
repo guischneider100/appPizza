@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TabSugestoesPage } from './tab-sugestoes.page';
+import { BuscaSugestaoPipe } from 'src/app/pipes/busca-sugestao.pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TabSugestoesPage]
+  declarations: [TabSugestoesPage, BuscaSugestaoPipe],
+  exports: [BuscaSugestaoPipe]
 })
 export class TabSugestoesPageModule {}

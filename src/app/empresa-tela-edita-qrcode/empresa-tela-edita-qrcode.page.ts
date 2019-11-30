@@ -39,16 +39,6 @@ export class EmpresaTelaEditaQrcodePage implements OnInit {
     this.config = JSON.parse(this.configService.getConfigData());
   }
 
-  async acaoToast() {
-    const toast = await this.toastController.create({
-      cssClass: "padrao-toast",
-      message: 'QR Code cadastrado com sucesso!',
-      duration: 1000
-    });
-    this.router.navigate(['empresa-tela-qrcode']);
-    toast.present();
-  }
-
   cadastrarQRCode() {
 
     let { Mesa } = this.cadastroForm.controls;

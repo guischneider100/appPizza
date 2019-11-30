@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { SaboresService } from '../conexao/sabores.service';
 import { ConfiguracaoServService } from '../conexao/configuracao-serv.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-empresa-tela-sabores',
@@ -17,9 +18,12 @@ export class EmpresaTelaSaboresPage implements OnInit {
   public sabores: any;
   public empresa: any;
 
+  i = 0;
+
   constructor(private router: Router,
     public saboresService: SaboresService,
-    public configService: ConfiguracaoServService) {
+    public configService: ConfiguracaoServService,
+    public alertController: AlertController) {
   }
 
   ionViewWillEnter() {
@@ -28,7 +32,7 @@ export class EmpresaTelaSaboresPage implements OnInit {
     this.saboresService.buscarSabores(config.access_token)
       .subscribe(
         data => {
-          this.sabores = data;
+            this.sabores = data;
         }, error => {
         }
       )
@@ -67,4 +71,8 @@ export class EmpresaTelaSaboresPage implements OnInit {
   ngOnInit() {
   }
 
+}
+
+class Sabor {
+  status: number;
 }

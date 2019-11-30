@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { EmpresaTelaQrcodePage } from './empresa-tela-qrcode.page';
+import { BuscaQRCodePipe } from '../pipes/busca-qrcode.pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EmpresaTelaQrcodePage]
+  declarations: [EmpresaTelaQrcodePage, BuscaQRCodePipe],
+  exports: [BuscaQRCodePipe]
 })
 export class EmpresaTelaQrcodePageModule {}

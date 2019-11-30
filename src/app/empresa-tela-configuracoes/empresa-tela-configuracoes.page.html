@@ -11,26 +11,30 @@
 
 <ion-content>
 
-  <ion-card>
-    <ion-grid>
-      <ion-row class="padrao-grid-row">
-        <ion-col>
-          <ion-item lines="full">
-            <ion-label position="floating" class="padrao-grid-label">Impressora:</ion-label>
-            <ion-input type="text" class="padrao-grid-text-field"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <div class="formatacao-padrao-button-texto-card-login">
-            <ion-button color="secondary" class="button-padrao-tamanho" [routerLink]="['/empresa-tela-principal']">
-              <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> SALVAR ALTERAÇÕES
-            </ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
+  <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarConfigs()" novalidate>
+    <ion-card>
+      <ion-grid>
+        <ion-row class="padrao-grid-row">
+          <ion-col>
+            <ion-item lines="full">
+              <ion-label position="floating" class="padrao-grid-label">Impressora:</ion-label>
+              <ion-input formControlName="Impressora" type="text"
+                class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-label *ngIf="errorImpressora" class="error"> {{messageImpressora}}</ion-label>
+        <ion-row>
+          <ion-col>
+            <div class="formatacao-padrao-button-texto-card-login">
+              <ion-button color="secondary" class="button-padrao-tamanho" (click)="cadastrarConfigs()">
+                <ion-icon name="md-add-circle" class="espacamento-icon-button"></ion-icon> SALVAR ALTERAÇÕES
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </form>
 
 </ion-content>

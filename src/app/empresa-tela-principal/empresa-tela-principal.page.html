@@ -18,40 +18,29 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="9.7" class="searchbar-input-espacamento">
-        <ion-input class="searchbar-input" placeholder="Pesquisar..." clearInput></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-button color="secondary">
-          <ion-icon class="padrao-icon" name="md-search"></ion-icon>
-        </ion-button>
+      <ion-col class="searchbar-input-espacamento">
+        <ion-searchbar placeholder="Pesquisar..." [(ngModel)]="terms"></ion-searchbar>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-list class="padrao-list" lines="full">
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-pizza-salgada.jpg">
-            </ion-thumbnail>
-            <div>
-              <ion-label><b>Mesa:</b> 2</ion-label>
-              <ion-label><b>Sabor:</b> Calabresa</ion-label>
-              <ion-label><b>Cliente:</b> Guilherme</ion-label>
-            </div>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-garcom.jpg">
-            </ion-thumbnail>
-            <div>
-              <ion-label><b>Mesa:</b> 2</ion-label>
-              <ion-label><b>CHAMADA DE GARÇOM</b></ion-label>
-              <ion-label><b>Cliente:</b> Guilherme</ion-label>
-            </div>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
+        <ion-list class="padrao-list">
+          <div *ngFor="let pedido of pedidos | buscaSabor: terms">
+            <ion-item *ngIf="pedido.empresa == empresa && pedido.status == 1">
+              <ion-thumbnail slot="start">
+                <img style="border-radius: 50%;" *ngIf="pedido.sabor != 'Chamada do Garçom'"
+                  src="../../assets/padrao-pizza-salgada.jpg">
+                <img style="border-radius: 50%;" *ngIf="pedido.sabor == 'Chamada do Garçom'" src="../../assets/padrao-garcom.jpg">
+              </ion-thumbnail>
+              <div>
+                <ion-label><b>Mesa:</b> {{ pedido.mesa }}</ion-label>
+                <ion-label *ngIf="pedido.sabor != 'Chamada do Garçom'"><b>Sabor:</b> {{ pedido.sabor }}</ion-label>
+                <ion-label *ngIf="pedido.sabor == 'Chamada do Garçom'"><b> {{ pedido.sabor }} </b></ion-label>
+                <ion-label><b>Cliente:</b> {{ pedido.cliente }}</ion-label>
+              </div>
+              <ion-checkbox [(ngModel)]="pedido.checked" slot="end"></ion-checkbox>
+            </ion-item>
+          </div>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -63,7 +52,7 @@
 
   <ion-toolbar position="bottom">
     <div class="formatacao-padrao-button-texto">
-      <ion-button color="secondary" class="button-padrao-tamanho" (click)="acaoToast()">
+      <ion-button [disabled]="!podeFinalizarPedido" color="secondary" class="button-padrao-tamanho" (click)="finalizarPedido()">
         <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> FINALIZAR ATENDIMENTO
       </ion-button>
     </div>

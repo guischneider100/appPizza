@@ -13,26 +13,19 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="9.7" class="searchbar-input-espacamento">
-        <ion-input class="searchbar-input" placeholder="Pesquisar..." clearInput></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-button color="secondary">
-          <ion-icon class="padrao-icon" name="md-search"></ion-icon>
-        </ion-button>
+      <ion-col class="searchbar-input-espacamento">
+        <ion-searchbar placeholder="Pesquisar..." [(ngModel)]="terms"></ion-searchbar>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-list class="padrao-list" lines="full">
-          <ion-item>
-            <ion-label><b>Sugestão:</b> quebrar tudo</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label><b>Sugestão:</b> quebrar tudo</ion-label>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
+          <div *ngFor="let sugestao of sugestoes | buscaSugestao: terms">
+            <ion-item *ngIf="sugestao.empresa == empresa && sugestao.status == 1">
+              <ion-label><b>Opinião: </b> {{ sugestao.info }}</ion-label>
+              <ion-checkbox [(ngModel)]="sugestao.checked" slot="end"></ion-checkbox>
+            </ion-item>
+          </div>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -42,12 +35,12 @@
 
 <ion-footer>
 
-    <ion-toolbar position="bottom">
-      <div class="formatacao-padrao-button-texto">
-        <ion-button color="secondary" class="button-padrao-tamanho" (click)="acaoToast()">
-          <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> RESOLVER
-        </ion-button>
-      </div>
-    </ion-toolbar>
-  
-  </ion-footer>
+  <ion-toolbar position="bottom">
+    <div class="formatacao-padrao-button-texto">
+      <ion-button [disabled]="!podeFinalizarSugestao" color="secondary" class="button-padrao-tamanho" (click)="finalizarSugestao()">
+        <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> RESOLVER
+      </ion-button>
+    </div>
+  </ion-toolbar>
+
+</ion-footer>

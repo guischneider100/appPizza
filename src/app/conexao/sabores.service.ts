@@ -52,4 +52,24 @@ export class SaboresService {
 
     return this.http.put(this.baseApiPath + "/sabor/" + codigo, request, httpOptions);
   }
+
+  inativaSabor(body: number, access_token: string, codigo: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + access_token,
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put(this.baseApiPath + "/sabor/" + codigo + "/status", body, httpOptions);
+  }
+
+  excluirSabor(codigo: number, access_token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + access_token,
+      })
+    };
+
+    return this.http.delete(this.baseApiPath + "/sabor/" + codigo, httpOptions)
+  }
 }

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ClienteTelaPrincipalPage } from './cliente-tela-principal.page';
+import { BuscaSaborClientePipe } from '../pipes/busca-sabor-cliente.pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ClienteTelaPrincipalPage]
+  declarations: [ClienteTelaPrincipalPage, BuscaSaborClientePipe],
+  exports: [BuscaSaborClientePipe]
 })
 export class ClienteTelaPrincipalPageModule {}

@@ -6,7 +6,7 @@
     </ion-buttons>
     <ion-title class="titles-toolbar">QR Code</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)='acaoToast("excluído(s)")'>
+      <ion-button [disabled]="!podeExcluirQRCode" (click)='excluirQRCode()'>
         <ion-icon name="md-trash" class="padrao-icon"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -18,28 +18,24 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="9.7" class="searchbar-input-espacamento">
-        <ion-input class="searchbar-input" placeholder="Pesquisar..." clearInput></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-button color="secondary">
-          <ion-icon class="padrao-icon" name="md-search"></ion-icon>
-        </ion-button>
+      <ion-col class="searchbar-input-espacamento">
+        <ion-searchbar placeholder="Pesquisar..." [(ngModel)]="terms"></ion-searchbar>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-list class="padrao-list" lines="full">
-          <div *ngFor="let qrcode of qrcodes">
-            <ion-item>
+        <ion-list class="padrao-list">
+          <div *ngFor="let qrcode of qrcodes | buscaQRCode: terms">
+            <ion-item *ngIf="qrcode.empresa == empresa">
               <ion-thumbnail slot="start">
                 <img style="border-radius: 30%;" src="../../assets/padrao-qrcode.png">
               </ion-thumbnail>
               <div>
                 <ion-label>Mesa {{ qrcode.mesa }}</ion-label>
               </div>
-              <ion-icon slot="end" name="md-alert" class="padrao-icon" color="danger"></ion-icon>
-              <ion-checkbox slot="end"></ion-checkbox>
+              <ion-icon *ngIf="qrcode.status == 0" slot="end" name="md-checkmark-circle" class="padrao-icon" color="success"></ion-icon>
+              <ion-icon *ngIf="qrcode.status == 1" slot="end" name="md-alert" class="padrao-icon" color="danger"></ion-icon>
+              <ion-checkbox [(ngModel)]="qrcode.checked" slot="end"></ion-checkbox>
             </ion-item>
           </div>
         </ion-list>
@@ -58,7 +54,7 @@
       </ion-button>
     </div>
     <div class="formatacao-padrao-button-texto">
-      <ion-button color="secondary" class="button-padrao-tamanho" (click)='acaoToast("impresso(s)")'>
+      <ion-button [disabled]="!podeGerarQRCode" color="secondary" class="button-padrao-tamanho" (click)="imprimirQRCode()">
         <ion-icon name="md-print" class="espacamento-icon-button"></ion-icon> IMPRIMIR SELECIONADOS
       </ion-button>
     </div>

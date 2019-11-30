@@ -6,7 +6,13 @@
     </ion-buttons>
     <ion-title class="titles-toolbar">Cadastro de Sabores</ion-title>
     <ion-buttons slot="end">
-      <ion-button *ngIf="escondeTipoCadastrar">
+      <ion-button *ngIf="escondeTipoCadastrar && statusSaborRetornado == 0" (click)="inativarAtivarSabor()">
+        <ion-icon name="md-checkmark-circle" class="padrao-icon"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="escondeTipoCadastrar && statusSaborRetornado == 1" (click)="inativarAtivarSabor()">
+        <ion-icon name="md-close-circle" class="padrao-icon"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="escondeTipoCadastrar" (click)="excluirSabor()">
         <ion-icon name="md-trash" class="padrao-icon"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,7 +29,8 @@
           <ion-col>
             <ion-item lines="full">
               <ion-label position="floating" class="padrao-grid-label">Nome:</ion-label>
-              <ion-input formControlName="Nome" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
+              <ion-input formControlName="Nome" type="text" class="padrao-grid-text-field" clearInput
+                clearOnEdit="false"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -32,7 +39,8 @@
           <ion-col>
             <ion-item lines="full">
               <ion-label position="floating" class="padrao-grid-label">Ingredientes:</ion-label>
-              <ion-input formControlName="Ingredientes" type="text" class="padrao-grid-text-field" clearInput clearOnEdit="false"></ion-input>
+              <ion-input formControlName="Ingredientes" type="text" class="padrao-grid-text-field" clearInput
+                clearOnEdit="false"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -40,25 +48,26 @@
           <ion-col>
             <ion-item lines="full">
               <ion-label position="floating" class="padrao-grid-label">Tipo:</ion-label>
-              <ion-select formControlName="Categoria" class="padrao-grid-combobox-maior" placeholder="" clearOnEdit="false">
-                <ion-select-option value="1" selected>Salgada</ion-select-option>
-                <ion-select-option value="2" selected>Doce</ion-select-option>
-                <ion-select-option value="3" selected>Vegetariana</ion-select-option>
+              <ion-select formControlName="Categoria" class="padrao-grid-combobox-maior" placeholder=""
+                clearOnEdit="false">
+                <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.name}}
+                </ion-select-option>
               </ion-select>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-label *ngIf="errorCategoria" class="error"> {{messageCategoria}}</ion-label>
-        <ion-row class="formatacao-padrao-big-button">
-          <ion-col>
-            <ion-button color="secondary" class="normal-button">
-              <ion-icon class="padrao-icon" name="md-camera"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
+        <div class="item-sel" align="center">
+          <ion-thumbnail>
+            <img style="border-radius: 50%;" src="{{ imagemSabor }}">
+          </ion-thumbnail>
+          <ion-button color="secondary" class="normal-button-2" (click)="pegarFotoSabor()">
+            <ion-icon class="padrao-icon" name="md-camera"></ion-icon>
+          </ion-button>
+        </div>
         <ion-row class="padrao-grid-row">
           <ion-col>
-            <div class="formatacao-padrao-button-texto-card-login">
+            <div class="formatacao-padrao-button-texto-card-login-top">
               <ion-button color="secondary" class="button-padrao-tamanho" (click)="cadastrarSabor()">
                 <ion-icon name="{{ iconeSalvar }}" class="espacamento-icon-button"></ion-icon> {{ infoListagem.tipo }}
               </ion-button>

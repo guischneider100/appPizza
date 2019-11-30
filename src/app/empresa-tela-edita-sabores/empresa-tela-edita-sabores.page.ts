@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ActionSheetController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SaboresService } from '../conexao/sabores.service';
 import { ConfiguracaoServService } from '../conexao/configuracao-serv.service';
+import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-empresa-tela-edita-sabores',
@@ -11,7 +13,8 @@ import { ConfiguracaoServService } from '../conexao/configuracao-serv.service';
   styleUrls: ['./empresa-tela-edita-sabores.page.scss'],
   providers: [
     ConfiguracaoServService,
-    SaboresService
+    SaboresService,
+    File
   ]
 })
 export class EmpresaTelaEditaSaboresPage implements OnInit {
@@ -25,16 +28,28 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
   public config: any;
   public isEditando: boolean;
   public saborRetornado: any;
+  public categorias: any;
+  public categoriasTd: any;
 
   NomeRetornado = "";
   IngredientesRetornados = "";
   CategoriaRetornado = "";
   FotoRetornado = "";
+  statusSaborRetornado = "";
 
   messageNome = "";
   errorNome: boolean = false;
   messageCategoria = "";
   errorCategoria: boolean = false;
+  imagemSabor: String;
+
+  croppedImagepath = "";
+  isLoading = false;
+
+  imagePickerOptions = {
+    maximumImagesCount: 1,
+    quality: 50
+  };
 
   constructor(private route: ActivatedRoute,
     public toastController: ToastController,
@@ -42,7 +57,10 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
     formBuilder: FormBuilder,
     public saboresService: SaboresService,
     private alertCtrl: AlertController,
-    public configService: ConfiguracaoServService) {
+    public configService: ConfiguracaoServService,
+    private camera: Camera,
+    public actionSheetController: ActionSheetController,
+    private file: File) {
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -60,13 +78,20 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
           this.IngredientesRetornados = this.saborRetornado.ingredientes;
           this.CategoriaRetornado = this.saborRetornado.categoria;
           this.FotoRetornado = this.saborRetornado.foto;
+          this.statusSaborRetornado = this.saborRetornado.status;
         }
+
+        this.categorias = [
+          { id: 1, name: 'Salgada' },
+          { id: 2, name: 'Doce' },
+          { id: 3, name: 'Vegetariana' },
+        ];
+        this.categoriasTd = [this.categorias[this.CategoriaRetornado]];
 
         this.cadastroForm = formBuilder.group({
           Nome: [this.NomeRetornado, Validators.compose([Validators.required, Validators.minLength(3)])],
           Ingredientes: [this.IngredientesRetornados],
-          Categoria: [this.CategoriaRetornado, Validators.compose([Validators.required])],
-          Foto: [this.FotoRetornado]
+          Categoria: [this.CategoriaRetornado, Validators.compose([Validators.required])]
         });
 
         this.informaValor = {
@@ -75,21 +100,8 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
       }
     });
 
+    this.imagemSabor = "../../assets/padrao-pizza-salgada.jpg";
     this.config = JSON.parse(this.configService.getConfigData());
-  }
-
-  async acaoToast() {
-    if (this.infoListagem.tipo === "Cadastrar") {
-      const toast = await this.toastController.create({
-        cssClass: "padrao-toast",
-        message: 'Sabor cadastrado com sucesso!',
-        duration: 1000
-      });
-      this.router.navigate(['empresa-tela-sabores']);
-      toast.present();
-    } else {
-      this.router.navigate(['empresa-tela-sabores']);
-    }
   }
 
   cadastrarSabor() {
@@ -127,12 +139,11 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
       sabor.nome = this.cadastroForm.value.Nome;
       sabor.ingredientes = this.cadastroForm.value.Ingredientes;
       sabor.categoria = this.cadastroForm.value.Categoria;
-      sabor.imagem = this.cadastroForm.value.Foto;
+      sabor.imagem;
       sabor.status = 1;
       sabor.empresa = this.config.codigoEmpresa;
 
       if (this.isEditando) {
-        console.log("Entrou editando");
         this.saboresService.editaSabor(sabor, this.config.access_token, this.saborRetornado.codigo)
           .subscribe(
             data => {
@@ -142,7 +153,6 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
             }
           )
       } else {
-        console.log("Entrou cadastrando");
         this.saboresService.cadastraSabor(sabor, this.config.access_token)
           .subscribe(
             data => {
@@ -163,6 +173,116 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
     }
   }
 
+  excluirSabor() {
+
+    this.saboresService.excluirSabor(this.saborRetornado.codigo, this.config.access_token).subscribe(
+      data => {
+        this.router.navigateByUrl("/empresa-tela-sabores");
+        this.presentAlert('Sabor excluído!', 'Sabor excluído com sucesso!');
+      }, error => {
+        if (error.status == 400) {
+          let errorMessage: string = "";
+          for (var i = 0; i < error.error.length; i++) {
+            var obj = error.error[i];
+            errorMessage = errorMessage + obj.mensagemUsuario + "<br>";
+          }
+          this.presentAlertError('Falha!', errorMessage);
+        } else {
+          this.presentAlertError('Falha!', 'Erro desconhecido.');
+        }
+      });
+    this.router.navigateByUrl("/empresa-tela-sabores");
+  }
+
+  inativarAtivarSabor() {
+
+    let sabor = new Sabor();
+    if (this.statusSaborRetornado == "1") {
+      sabor.status = 0;
+    } else {
+      sabor.status = 1;
+    }
+
+    let config = JSON.parse(this.configService.getConfigData());
+    this.saboresService.inativaSabor(sabor.status, config.access_token, this.saborRetornado.codigo)
+      .subscribe(
+        data => {
+          this.router.navigateByUrl("/empresa-tela-sabores");
+          this.presentAlert('Sabor ativado/inativado!', 'Sabor ativado/inativado com sucesso!');
+        }, error => {
+          if (error.status == 400) {
+            let errorMessage: string = "";
+            for (var i = 0; i < error.error.length; i++) {
+              var obj = error.error[i];
+              errorMessage = errorMessage + obj.mensagemUsuario + "<br>";
+            }
+            this.presentAlertError('Falha!', errorMessage);
+          } else {
+            this.presentAlertError('Falha!', 'Erro desconhecido.');
+          }
+        })
+  }
+
+  pegaFotoSabor(sourceType) {
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: sourceType,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      this.imagemSabor = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+    });
+  }
+
+  async pegarFotoSabor() {
+    const actionSheet = await this.actionSheetController.create({
+      header: "Select Image source",
+      buttons: [{
+        text: 'Load from Library',
+        handler: () => {
+          this.pegaFotoSabor(this.camera.PictureSourceType.PHOTOLIBRARY);
+        }
+      },
+      {
+        text: 'Use Camera',
+        handler: () => {
+          this.pegaFotoSabor(this.camera.PictureSourceType.CAMERA);
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+      ]
+    });
+    await actionSheet.present();
+  }
+
+  async presentConfirm() {
+    let alert = await this.alertCtrl.create({
+      header: "Excluir?",
+      message: "Deseja realmente excluir esse sabor?",
+      cssClass: 'alertCustomCss',
+      buttons: [
+        {
+          text: "Cancelar",
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Excluir',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   async presentAlert(titleMsg: string, subTitleMsg: string) {
     const alert = await this.alertCtrl.create({
       header: titleMsg,
@@ -170,7 +290,6 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
       buttons: [{
         text: 'OK',
         handler: () => {
-          //this.router.navigate(['empresa-tela-sabores']);
           this.router.navigateByUrl("/empresa-tela-sabores");
         }
       }

@@ -9,7 +9,7 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class ClienteQrcodePage implements OnInit {
 
-  scannedData: {};
+  scannedData = {};
   arrayInfos: String[];
   barcodeScannerOptions: BarcodeScannerOptions;
 
@@ -24,25 +24,31 @@ export class ClienteQrcodePage implements OnInit {
   }
 
   scanCode() {
-
-    this.scannedData = "1:1";
-    this.arrayInfos = this.scannedData.toString().split(':');
-
-    let navigationExtras: NavigationExtras = {
-      state: {
-        qrCodeMesa: this.arrayInfos[0],
-        qrCodeEmpresa: this.arrayInfos[1]
-      }
-    };
-
-    this.router.navigate(['cliente-nome'], navigationExtras);
     /*this.barcodeScanner
       .scan()
       .then(barcodeData => {
         this.scannedData = barcodeData;
+        this.arrayInfos = this.scannedData["text"].toString().split(':');
+
+        let navigationExtras: NavigationExtras = {
+          state: {
+            qrCodeMesa: this.arrayInfos[0],
+            qrCodeEmpresa: this.arrayInfos[1]
+          }
+        };
+        this.router.navigate(['cliente-nome'], navigationExtras);
       })
       .catch(err => {
       });*/
+      this.scannedData = '1:1';
+      this.arrayInfos = this.scannedData.toString().split(':');
+      let navigationExtras: NavigationExtras = {
+        state: {
+          qrCodeMesa: this.arrayInfos[0],
+          qrCodeEmpresa: this.arrayInfos[1]
+        }
+      };
+      this.router.navigate(['cliente-nome'], navigationExtras);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 let CONFIG_KEY_NAME = "CONFIG";
 
@@ -7,12 +8,9 @@ let CONFIG_KEY_NAME = "CONFIG";
 })
 export class ConfiguracaoServService {
 
-  private config = {
-    access_token: "",
-    codigoEmpresa: ""
-  };
+  private baseApiPath = "http://192.168.0.106:8080";
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
 
   getConfigData(): any {
     return localStorage.getItem(CONFIG_KEY_NAME);
@@ -26,5 +24,15 @@ export class ConfiguracaoServService {
     
     //localStorage esta no html5 entao eu acesso de qualquer lugar.
     localStorage.setItem(CONFIG_KEY_NAME, JSON.stringify(config));
+  }
+
+  sair(access_token: string){
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + access_token,
+        })
+      };
+  
+      return this.http.delete(this.baseApiPath + "/tokens/revoke", httpOptions)
   }
 }

@@ -2,7 +2,8 @@
 
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-        <ion-icon name="md-arrow-back" class="padrao-icon-back" (click)="hide()" *ngIf="escondePrimeiro"></ion-icon>
+      <ion-icon name="md-arrow-back" class="padrao-icon-back" (click)="listaSaboresCategoria()" *ngIf="escondePrimeiro">
+      </ion-icon>
     </ion-buttons>
     <ion-title class="titles-toolbar">Pedidos</ion-title>
     <ion-buttons slot="end">
@@ -21,52 +22,49 @@
 
   <ion-grid>
     <ion-row *ngIf="escondePrimeiro">
-      <ion-col size="9.7" class="searchbar-input-espacamento">
-        <ion-input class="searchbar-input" placeholder="Pesquisar..." clearInput></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-button color="secondary">
-          <ion-icon class="padrao-icon" name="md-search"></ion-icon>
-        </ion-button>
+      <ion-col class="searchbar-input-espacamento">
+        <ion-searchbar placeholder="Pesquisar..." [(ngModel)]="terms"></ion-searchbar>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-list class="padrao-list" lines="full">
-          <ion-item detail (click)="hide()" *ngIf="escondeSegundo">
+        <ion-list class="padrao-list">
+          <ion-item detail *ngIf="escondeSegundo && cat1" (click)="listaSaboresCategoria(1)">
             <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-pizza-salgada.jpg">
+              <img style="border-radius: 50%;" src="../../assets/padrao-pizza-salgada.jpg">
             </ion-thumbnail>
             <div>
               <ion-label>Salgadas</ion-label>
             </div>
           </ion-item>
-          <ion-item detail *ngIf="escondeSegundo">
+          <ion-item detail *ngIf="escondeSegundo && cat2" (click)="listaSaboresCategoria(2)">
             <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-pizza-doce.jpg">
+              <img style="border-radius: 50%;" src="../../assets/padrao-pizza-doce.jpg">
             </ion-thumbnail>
             <div>
               <ion-label>Doces</ion-label>
             </div>
           </ion-item>
-          <ion-item detail *ngIf="escondeSegundo">
+          <ion-item detail *ngIf="escondeSegundo && cat3" (click)="listaSaboresCategoria(3)">
             <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-pizza-vegetariana.jpg">
+              <img style="border-radius: 50%;" src="../../assets/padrao-pizza-vegetariana.jpg">
             </ion-thumbnail>
             <div>
               <ion-label>Vegetarianas</ion-label>
             </div>
           </ion-item>
-          <ion-item *ngIf="escondePrimeiro">
-            <ion-thumbnail slot="start">
-              <img style="border-radius: 30%;" src="../../assets/padrao-pizza-salgada.jpg">
-            </ion-thumbnail>
-            <div>
-              <ion-label>Calabresa</ion-label>
-              <ion-label>Calabresa</ion-label>
-            </div>
-            <ion-checkbox slot="end"></ion-checkbox>
-          </ion-item>
+          <div *ngFor="let sabor of sabores | buscaSaborCliente: terms">
+            <ion-item *ngIf="escondePrimeiro && sabor.categoria == categoria && sabor.empresa == empresa">
+              <ion-thumbnail slot="start">
+                <img style="border-radius: 50%;" src="../../assets/padrao-pizza-salgada.jpg">
+              </ion-thumbnail>
+              <div>
+                <ion-label>{{ sabor.nome }}</ion-label>
+                <ion-label>{{ sabor.ingredientes }}</ion-label>
+              </div>
+              <ion-checkbox [(ngModel)]="sabor.checked" slot="end"></ion-checkbox>
+            </ion-item>
+          </div>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -78,15 +76,16 @@
 
   <ion-toolbar position="bottom">
     <div class="formatacao-padrao-button-texto">
-      <ion-button color="secondary" class="button-padrao-tamanho" (click)="chamarGarcon()">
+      <ion-button [disabled]="garcomAberto" color="secondary" class="button-padrao-tamanho" (click)="chamarGarcon()">
         <ion-icon name="md-megaphone" class="espacamento-icon-button"></ion-icon> CHAMAR GARÇOM
-        <ion-icon slot="end" name="md-checkmark-circle" class="padrao-icon" color="success"></ion-icon>
+        <ion-icon *ngIf="garcomAberto" slot="end" name="md-checkmark-circle" class="padrao-icon" color="success"></ion-icon>
       </ion-button>
     </div>
     <div class="formatacao-padrao-button-texto" *ngIf="escondePrimeiro">
-      <ion-button color="secondary" class="button-padrao-tamanho" (click)='acaoToast("Pedido")'>
-        <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> ENVIAR PEDIDO <div style="padding-left: 5px;"></div>
-        <ion-badge class="padrao-badge" color="success">5</ion-badge>
+      <ion-button [disabled]="!podeFazerPedido" color="secondary" class="button-padrao-tamanho" (click)="fazerPedido('')">
+        <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> ENVIAR PEDIDO <div
+          style="padding-left: 5px;"></div>
+        <ion-badge class="padrao-badge" color="success">{{ pedidosAbertos }}</ion-badge>
       </ion-button>
     </div>
   </ion-toolbar>

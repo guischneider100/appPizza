@@ -13,22 +13,17 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="9.7" class="searchbar-input-espacamento">
-        <ion-input class="searchbar-input" placeholder="Pesquisar..." clearInput></ion-input>
-      </ion-col>
-      <ion-col>
-        <ion-button color="secondary">
-          <ion-icon class="padrao-icon" name="md-search"></ion-icon>
-        </ion-button>
+      <ion-col class="searchbar-input-espacamento">
+        <ion-searchbar placeholder="Pesquisar..." [(ngModel)]="terms"></ion-searchbar>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-list class="padrao-list" lines="full">
-          <div *ngFor="let sabor of sabores">
+        <ion-list class="padrao-list">
+          <div *ngFor="let sabor of sabores | buscaSaborSabores: terms">
             <ion-item detail *ngIf="sabor.empresa == empresa" (click)="editarSabor(sabor)">
               <ion-thumbnail slot="start">
-                <img style="border-radius: 30%;" src="../../assets/padrao-pizza-salgada.jpg">
+                <img style="border-radius: 50%;" src="../../assets/padrao-pizza-salgada.jpg">
               </ion-thumbnail>
               <div>
                 <ion-label>{{ sabor.nome }}</ion-label>

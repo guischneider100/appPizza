@@ -30,4 +30,14 @@ export class QrcodeService {
 
     return this.http.post(this.baseApiPath + "/qr_code", request, httpOptions)
   }
+
+  excluirQRCode(codigo: number, access_token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + access_token,
+      })
+    };
+
+    return this.http.delete(this.baseApiPath + "/qr_code/" + codigo, httpOptions)
+  }
 }
