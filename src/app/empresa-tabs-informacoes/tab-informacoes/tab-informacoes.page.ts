@@ -62,7 +62,7 @@ export class TabInformacoesPage implements OnInit {
 
     let { DataDe, DataAte } = this.cadastroForm.controls;
 
-    if (!this.cadastroForm.valid) {
+    if (!this.cadastroForm.valid && this.tipoPesquisa != 1) {
 
       if (!DataDe.valid) {
         this.errorDataDe = true;
@@ -92,8 +92,13 @@ export class TabInformacoesPage implements OnInit {
         this.dataFim = this.arrayInfos[2] + "-" + this.arrayInfos[1] + "-" + this.arrayInfos[0]
       } else if (this.tipoPesquisa == 1) {
         var now = new Date;
-        this.dataIni = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
-        this.dataFim = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+        if (now.getDate() < 10) {
+          this.dataIni = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-0" + now.getDate().toString();
+          this.dataFim = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-0" + now.getDate().toString();
+        } else {
+          this.dataIni = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+          this.dataFim = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+        }
       }
 
       let config = JSON.parse(this.configService.getConfigData());

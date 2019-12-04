@@ -54,12 +54,12 @@
             </div>
           </ion-item>
           <div *ngFor="let sabor of sabores | buscaSaborCliente: terms">
-            <ion-item *ngIf="escondePrimeiro && sabor.categoria == categoria && sabor.empresa == empresa">
+            <ion-item *ngIf="escondePrimeiro && sabor.categoria == categoria && sabor.empresa == empresa && sabor.status == 1">
               <ion-thumbnail slot="start">
                 <img style="border-radius: 50%;" src="../../assets/padrao-pizza-salgada.jpg">
               </ion-thumbnail>
               <div>
-                <ion-label>{{ sabor.nome }}</ion-label>
+                <ion-label><b>{{ sabor.nome }}</b></ion-label>
                 <ion-label>{{ sabor.ingredientes }}</ion-label>
               </div>
               <ion-checkbox [(ngModel)]="sabor.checked" slot="end"></ion-checkbox>

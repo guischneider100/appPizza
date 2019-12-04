@@ -60,12 +60,12 @@
   --ion-color-dark-tint: #383a3e;
 
   /** medium **/
-  --ion-color-medium: #989aa2;
+  --ion-color-medium: #1D3C78;
   --ion-color-medium-rgb: 152, 154, 162;
-  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast: rgb(255, 255, 255);
   --ion-color-medium-contrast-rgb: 255, 255, 255;
-  --ion-color-medium-shade: #86888f;
-  --ion-color-medium-tint: #a2a4ab;
+  --ion-color-medium-shade: rgb(31, 95, 223);
+  --ion-color-medium-tint: rgb(12, 90, 245);
 
   /** light **/
   --ion-color-light: #f4f5f8;
@@ -168,6 +168,14 @@
   }
 
   .padrao-grid-combobox-maior{
+    font-size: 14px; 
+    color: black;
+    border: solid 2px #F75705;
+    border-radius: 10px;
+    background: white;
+  }
+
+  .padrao-grid-combobox-maior-2{
     padding-top: 20px;
     font-size: 14px; 
     color: black

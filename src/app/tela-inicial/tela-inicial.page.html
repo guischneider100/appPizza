@@ -4,7 +4,7 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-            <img src="../../assets/tela-inicial-pizza.png" height='350' width='300'/>
+          <img src="../../assets/1.png" height='350' width='300' />
         </ion-col>
       </ion-row>
       <ion-row>
@@ -21,6 +21,12 @@
           </ion-button>
         </ion-col>
       </ion-row>
+      <ion-col *ngIf="botaoVisivel">
+        <ion-input [(ngModel)]="enviaIP" type="text" class="padrao-grid-text-field"></ion-input>
+        <ion-button (click)="enviaIp()" color="secondary" class="button-padrao-tamanho">
+          <ion-icon name="md-people" class="espacamento-icon-button"></ion-icon> CONFIG
+        </ion-button>
+      </ion-col>
     </ion-grid>
   </div>
 

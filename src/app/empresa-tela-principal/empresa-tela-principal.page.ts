@@ -89,6 +89,7 @@ export class EmpresaTelaPrincipalPage implements OnInit {
                 while (this.k < Object.keys(this.sabores).length) {
                   if (data3[this.i].sabor == this.sabores[this.k].sabCod) {
                     this.pedidos.push({ pedCod: data3[this.i].codigo, mesa: data3[this.i].mesa, sabor: this.sabores[this.k].nome, cliente: this.clientes[this.j].nome, empresa: data3[this.i].empresa, status: data3[this.i].status, checked: false });
+                    console.log(this.pedidos)
                     this.k++;
                   } else {
                     this.k++;

@@ -26,9 +26,11 @@
                 <img style="border-radius: 50%;" src="../../assets/padrao-pizza-salgada.jpg">
               </ion-thumbnail>
               <div>
-                <ion-label>{{ sabor.nome }}</ion-label>
+                <ion-label><b>{{ sabor.nome }}</b></ion-label>
                 <ion-label>{{ sabor.ingredientes }}</ion-label>
               </div>
+              <ion-icon *ngIf="sabor.status == 1" slot="end" name="md-checkmark-circle" class="padrao-icon" color="success"></ion-icon>
+              <ion-icon *ngIf="sabor.status == 0" slot="end" name="md-alert" class="padrao-icon" color="danger"></ion-icon>
             </ion-item>
           </div>
         </ion-list>

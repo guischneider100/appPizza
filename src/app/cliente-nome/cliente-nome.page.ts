@@ -4,6 +4,7 @@ import { ConfiguracaoServService } from '../conexao/configuracao-serv.service';
 import { UsuarioAutService } from '../conexao/usuario-aut.service';
 import { ClienteService } from '../conexao/cliente.service';
 import { AlertController } from '@ionic/angular';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-nome',
@@ -21,16 +22,25 @@ export class ClienteNomePage implements OnInit {
   public config: any;
   public nomeCliente: string;
   public codCliente: any;
+  public cadastroForm: FormGroup;
+
+  messageNomeCliente = "";
+  errorNomeCliente: boolean = false;
 
   constructor(private router: Router,
     public configService: ConfiguracaoServService,
     public usuarioAutenticacaoProvider: UsuarioAutService,
     public clienteService: ClienteService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    formBuilder: FormBuilder) {
       
     if (this.router.getCurrentNavigation().extras.state) {
       this.infoListagem = this.router.getCurrentNavigation().extras.state;
     }
+
+    this.cadastroForm = formBuilder.group({
+      nomeCliente: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+    });
     
   }
 
@@ -49,8 +59,28 @@ export class ClienteNomePage implements OnInit {
   }
 
   cadastrarCliente() {
+
+    let { nomeCliente } = this.cadastroForm.controls;
+
+    if (!this.cadastroForm.valid) {
+
+      if (!nomeCliente.valid) {
+        if (nomeCliente.hasError('minlength')) {
+          this.messageNomeCliente = "O nome deve ter pelo menos 3 caracteres";
+        }
+        if (nomeCliente.hasError('required')) {
+          this.messageNomeCliente = "O nome é obrigatório";
+        }
+        this.errorNomeCliente = true;
+      } else {
+        this.errorNomeCliente = false;
+        this.messageNomeCliente = "";
+      }
+
+    } else {
+
     let cliente = new Cliente();
-    cliente.nome = this.nomeCliente;
+    cliente.nome = this.cadastroForm.value.nomeCliente;
     cliente.mesa = this.infoListagem.qrCodeMesa;
     cliente.status = 1;
     cliente.empresa = this.infoListagem.qrCodeEmpresa;
@@ -59,7 +89,14 @@ export class ClienteNomePage implements OnInit {
     .subscribe(
       data => {
         this.codCliente = data;
-        this.presentAlert('Cliente cadastrado!', 'Cliente cadastrado com sucesso!');
+
+        let navigationExtras: NavigationExtras = {
+          state: {
+            clienteCod: this.codCliente.codigo
+          }
+        };
+
+        this.router.navigate(['cliente-tela-principal'], navigationExtras);
       }, error => {
         if (error.status == 400) {
           let errorMessage: string = "";
@@ -72,28 +109,7 @@ export class ClienteNomePage implements OnInit {
           this.presentAlertError('Falha!', 'Erro desconhecido.');
         }
       })
-  }
-
-  async presentAlert(titleMsg: string, subTitleMsg: string) {
-    const alert = await this.alertCtrl.create({
-      header: titleMsg,
-      subHeader: subTitleMsg,
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-
-          let navigationExtras: NavigationExtras = {
-            state: {
-              clienteCod: this.codCliente.codigo
-            }
-          };
-
-          this.router.navigate(['cliente-tela-principal'], navigationExtras);
-        }
-      }
-      ]
-    });
-    alert.present();
+    }
   }
 
   async presentAlertError(titleMsg: string, subTitleMsg: string) {

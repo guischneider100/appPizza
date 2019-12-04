@@ -21,6 +21,7 @@ export class EmpresaTelaQrcodePage implements OnInit {
   public empresa: any;
 
   private qrCodesExcluidos: number;
+  private qrCodesImprimir = [];
 
   public pedidos = [];
   public qrcodes = [];
@@ -123,14 +124,19 @@ export class EmpresaTelaQrcodePage implements OnInit {
               this.i = 0;
               this.qrcodes = [];
               while (this.i < Object.keys(data).length) {
-                while (this.j < Object.keys(this.uniqueArray).length) {
-                  if (this.uniqueArray[this.j] == data[this.i].mesa) {
-                    this.qrcodes.push({ qrCode: data[this.i].codigo, mesa: data[this.i].mesa, empresa: data[this.i].empresa, status: 1, checked: false });
-                    this.j++;
-                  } else {
-                    this.qrcodes.push({ qrCode: data[this.i].codigo, mesa: data[this.i].mesa, empresa: data[this.i].empresa, status: 0, checked: false });
+                if (Object.keys(this.uniqueArray).length > 0) {
+                  while (this.j < Object.keys(this.uniqueArray).length) {
+                    if (this.uniqueArray[this.j] == data[this.i].mesa) {
+                      this.qrcodes.push({ qrCode: data[this.i].codigo, mesa: data[this.i].mesa, empresa: data[this.i].empresa, status: 1, checked: false });
+                      this.j++;
+                    } else {
+                      this.qrcodes.push({ qrCode: data[this.i].codigo, mesa: data[this.i].mesa, empresa: data[this.i].empresa, status: 0, checked: false });
+                      this.j++;
+                    }
                     this.j++;
                   }
+                } else {
+                  this.qrcodes.push({ qrCode: data[this.i].codigo, mesa: data[this.i].mesa, empresa: data[this.i].empresa, status: 0, checked: false });
                   this.j++;
                 }
                 this.j = 0;
@@ -183,12 +189,12 @@ export class EmpresaTelaQrcodePage implements OnInit {
 
     while (this.i < this.qrcodes.length) {
       if (this.qrcodes[this.i].checked) {
-        this.qrCodesExcluidos = this.qrcodes[this.i].qrCode;
+        this.qrCodesImprimir.push({ mesa: this.qrcodes[this.i].mesa, empresa: this.qrcodes[this.i].empresa});
       }
       this.i++;
     }
 
-    window.open('https://chart.googleapis.com/chart?chs=350x350&cht=qr&chl=' + '1:1');
+    window.open('https://chart.googleapis.com/chart?chs=350x350&cht=qr&chl=' + this.qrCodesImprimir[0].mesa + ':' + this.qrCodesImprimir[0].empresa);
   }
 
   ngOnInit() {

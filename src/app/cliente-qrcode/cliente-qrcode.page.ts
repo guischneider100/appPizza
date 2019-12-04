@@ -24,7 +24,7 @@ export class ClienteQrcodePage implements OnInit {
   }
 
   scanCode() {
-    /*this.barcodeScanner
+    this.barcodeScanner
       .scan()
       .then(barcodeData => {
         this.scannedData = barcodeData;
@@ -39,16 +39,7 @@ export class ClienteQrcodePage implements OnInit {
         this.router.navigate(['cliente-nome'], navigationExtras);
       })
       .catch(err => {
-      });*/
-      this.scannedData = '1:1';
-      this.arrayInfos = this.scannedData.toString().split(':');
-      let navigationExtras: NavigationExtras = {
-        state: {
-          qrCodeMesa: this.arrayInfos[0],
-          qrCodeEmpresa: this.arrayInfos[1]
-        }
-      };
-      this.router.navigate(['cliente-nome'], navigationExtras);
+      });
   }
 
 }

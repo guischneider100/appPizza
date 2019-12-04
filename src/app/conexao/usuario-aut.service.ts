@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IpService } from './ip.service';
 
 
 @Injectable({
@@ -8,9 +9,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class UsuarioAutService {
 
   //private baseApiPath = "https://app-pizza-api-tcc.herokuapp.com";
-  private baseApiPath = "http://192.168.0.106:8080";
+  private baseApiPath;
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient,
+    public ip: IpService) {this.baseApiPath = ip.getIP(); }
 
   getBaseAuth(usuario: string, senha: string) {
     const httpOptions = {

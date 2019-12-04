@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { IpService } from './ip.service';
 
 let CONFIG_KEY_NAME = "SABOR";
 
@@ -8,16 +9,17 @@ let CONFIG_KEY_NAME = "SABOR";
 })
 export class SaboresService {
 
-  private baseApiPath = "http://192.168.0.106:8080";
+  private baseApiPath;
   public sabor: Object;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+    public ip: IpService) { this.baseApiPath = ip.getIP(); }
 
   getSabor(): any {
     return localStorage.getItem(CONFIG_KEY_NAME);
   }
 
-  setSabor(sabor?){  
+  setSabor(sabor?) {
     localStorage.setItem(CONFIG_KEY_NAME, JSON.stringify(sabor));
   }
 

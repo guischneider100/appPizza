@@ -208,7 +208,11 @@ export class EmpresaTelaEditaSaboresPage implements OnInit {
       .subscribe(
         data => {
           this.router.navigateByUrl("/empresa-tela-sabores");
-          this.presentAlert('Sabor ativado/inativado!', 'Sabor ativado/inativado com sucesso!');
+          if (sabor.status == 0) {
+            this.presentAlert('Sabor inativado!', 'Sabor inativado com sucesso!');
+          } else if (sabor.status == 1) {
+            this.presentAlert('Sabor ativado!', 'Sabor ativado com sucesso!');
+          }
         }, error => {
           if (error.status == 400) {
             let errorMessage: string = "";

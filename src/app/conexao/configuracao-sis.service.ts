@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { IpService } from './ip.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfiguracaoSisService {
 
-  private baseApiPath = "http://192.168.0.106:8080";
+  private baseApiPath;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+    public ip: IpService) {
+    this.baseApiPath = ip.getIP();
+  }
 
   cadastraConfigs(request: any, access_token: string) {
     const httpOptions = {

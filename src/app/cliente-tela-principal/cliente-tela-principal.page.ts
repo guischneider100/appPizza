@@ -66,10 +66,10 @@ export class ClienteTelaPrincipalPage implements OnInit {
             this.pedidosAbertos = 0;
             this.garcomAberto = false;
             while (this.i < Object.keys(data).length) {
-              if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor != 1000) {
+              if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor != 1) {
                 this.pedidosAbertos++;
               }
-              if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor == 1000) {
+              if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor == 1) {
                 this.garcomAberto = true;
               }
               this.i++;
@@ -106,7 +106,7 @@ export class ClienteTelaPrincipalPage implements OnInit {
             } else if (3 == data[this.i].categoria && this.empresa == data[this.i].empresa) {
               this.cat3 = true;
             }
-            this.sabores.push({ saborCod: data[this.i].codigo, nome: data[this.i].nome, ingredientes: data[this.i].ingredientes, categoria: data[this.i].categoria, empresa: data[this.i].empresa, checked: false });
+            this.sabores.push({ saborCod: data[this.i].codigo, nome: data[this.i].nome, ingredientes: data[this.i].ingredientes, categoria: data[this.i].categoria, empresa: data[this.i].empresa, status: data[this.i].status, checked: false });
             this.i++;
           }
         }, error => {
@@ -138,13 +138,18 @@ export class ClienteTelaPrincipalPage implements OnInit {
     pedido.cliente = this.infoListagem.clienteCod;
     pedido.mesa = this.cliente.mesa;
     if (garcom == "Chamada do Garçom") {
-      pedido.sabor = 1000;
+      pedido.sabor = 1;
     } else {
       pedido.sabor = this.saborEscolhido;
     }
     pedido.status = 1;
     var now = new Date;
-    pedido.data = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+    if (now.getDate() < 10) {
+      pedido.data = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-0" + now.getDate().toString();
+    } else {
+      pedido.data = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+    }
+
     pedido.empresa = this.empresa;
 
     let config = JSON.parse(this.configService.getConfigData());
@@ -152,7 +157,12 @@ export class ClienteTelaPrincipalPage implements OnInit {
     this.pedidoService.enviarPedido(pedido, config.access_token)
       .subscribe(
         data => {
-          this.presentAlert('Pedido enviado!', 'Pedido enviado com sucesso!');
+          if(garcom == "Chamada do Garçom"){
+            this.presentAlert('Garçom chamado!', 'Garçom chamado com sucesso!');
+          }else{
+            this.presentAlert('Pedido enviado!', 'Pedido enviado com sucesso!');
+          }
+          
           this.pedidoService.buscarPedidos(config.access_token)
             .subscribe(
               data => {
@@ -160,10 +170,10 @@ export class ClienteTelaPrincipalPage implements OnInit {
                 this.pedidosAbertos = 0;
                 this.garcomAberto = false;
                 while (this.i < Object.keys(data).length) {
-                  if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor != 1000) {
+                  if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor != 1) {
                     this.pedidosAbertos++;
                   }
-                  if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor == 1000) {
+                  if (this.infoListagem.clienteCod == data[this.i].cliente && this.empresa == data[this.i].empresa && data[this.i].status == 1 && data[this.i].sabor == 1) {
                     this.garcomAberto = true;
                   }
                   this.i++;
@@ -191,7 +201,11 @@ export class ClienteTelaPrincipalPage implements OnInit {
     sugestao.info = info;
     sugestao.status = 1;
     var now = new Date;
-    sugestao.data = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+    if (now.getDate() < 10) {
+      sugestao.data = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-0" + now.getDate().toString();
+    } else {
+      sugestao.data = now.getFullYear().toString() + "-" + (now.getMonth() + 1).toString() + "-" + now.getDate().toString();
+    }
     sugestao.cliente = this.infoListagem.clienteCod;
     sugestao.empresa = this.empresa;
 

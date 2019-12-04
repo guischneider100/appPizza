@@ -13,20 +13,18 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col size="7">
         <ion-select class="padrao-grid-combobox-maior" [(ngModel)]="tipoInformacoes" placeholder="">
           <ion-select-option value="1" selected>Sabores Mais Pedidos</ion-select-option>
           <ion-select-option value="2" selected>Números de Pedaçõs</ion-select-option>
           <ion-select-option value="3" selected>Chamadas de Garçom</ion-select-option>
         </ion-select>
       </ion-col>
-      <ion-col>
+      <ion-col size="5">
         <ion-select class="padrao-grid-combobox-maior" [(ngModel)]="tipoPesquisa" placeholder="">
           <ion-select-option value="1" selected>Data Atual</ion-select-option>
           <ion-select-option value="2" selected>Período</ion-select-option>
         </ion-select>
-      </ion-col>
-      <ion-col size="0.7">
       </ion-col>
     </ion-row>
     <form [formGroup]="cadastroForm" (ngSubmit)="buscarDados()" novalidate>
@@ -72,7 +70,8 @@
 
   <ion-toolbar position="bottom">
     <div class="formatacao-padrao-button-texto">
-      <ion-button [disabled]="!podeGerarInformacao" color="secondary" class="button-padrao-tamanho" (click)="buscarDados()">
+      <ion-button [disabled]="!podeGerarInformacao" color="secondary" class="button-padrao-tamanho"
+        (click)="buscarDados()">
         <ion-icon name="md-checkmark-circle" class="espacamento-icon-button"></ion-icon> GERAR RELATÓRIO
       </ion-button>
     </div>
